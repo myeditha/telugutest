@@ -4,13 +4,6 @@ import argparse
 import string
 import re
 
-def cleanse(line):
-    line = ' '.join([t for t in line.split() if not t.startswith('@') and not t.startswith('http')])
-    # line = line.translate(str.maketrans(string.punctuation, ' '*len(string.punctuation)))
-    line = re.sub('([.,!?()])', r' \1 ', line)
-    line = ' '.join(map(lambda x: x.lower(), line.split()))
-    return line
-
 def checkformistakes(line, nline):
     incorrect = input("enter space-separated incorrect words\n")
     print("entering correction mode: enter \'skip\' to skip current word, and \'end\' to exit correction mode")
@@ -51,7 +44,6 @@ def main():
 
     parser = argparse.ArgumentParser(description='Andhra Friends scraping')
     parser.add_argument('file', default = None, type=str, help='Input file name')
-    parser.add_argument('outfileplain', default = None, type=str, help='Name of output file of cleansed data')
     parser.add_argument('outfileclass', default = None, type=str, help='Name of output file of cleansed data augmented with classification')
 
     args = parser.parse_args()
@@ -65,14 +57,11 @@ def main():
         textlines = textlines
         # need to tag each, pipe into separate files
 
-        textlines = list(filter(lambda x: x!='', map(lambda x: cleanse(x), textlines)))
+        textlines = list(filter(lambda x: x!='', textlines))
 
         classification = list(map(lambda x: grabclasses(x), textlines))
 
-        with open(args.outfileplain, 'w') as w:
-            w.write('\n'.join(textlines))
-
-        # with open(args.outfileclass, 'w') as w:
-        #     w.write('\n'.join(classification))    
+        with open(args.outfileclass, 'w') as w:
+            w.write('\n'.join(classification))    
 
 main()
