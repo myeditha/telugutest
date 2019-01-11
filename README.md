@@ -8,7 +8,7 @@ Below are the instructions on how to use the tagging script. You may also choose
 
 ### Tagger Script Instructions
 
-To use the tagger script, run `./tagger.py output_.txt outputaug_.txt`, where `_` should be replaced with your assigned number. 
+To use the tagger script, run `./tagger.py data/output_.txt data/outputaug_.txt`, where `_` should be replaced with your assigned number. 
 
 You will have the opportunity to classify each word in every sentence sequentially. Once the script is run, you will see each sentence with the current word you're trying to classify written immediately underneath. The classifications you should put for each word should be `eng` for English, `tel` for Telugu, and `other` for other. See instructions below on how to tag each word for how to do this.
 
