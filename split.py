@@ -1,9 +1,17 @@
 import random
 import json
+import re
+
+def cleanse(line):
+    line = ' '.join([t for t in line.split() if not t.startswith('@') and not t.startswith('http')])
+    # line = line.translate(str.maketrans(string.punctuation, ' '*len(string.punctuation)))
+    line = re.sub('([.,!?()])', r' \1 ', line)
+    line = ' '.join(map(lambda x: x.lower(), line.split()))
+    return line
 
 def writetofile(lis, num):
     with open("data/outfile" + str(num) + ".txt", "w+") as w:
-        w.write("\n".join(list(map(lambda x: x[0], lis))))
+        w.write("\n".join(list(map(lambda x: cleanse(x[0]), lis))))
 
 def main():
     numfiles = 16
